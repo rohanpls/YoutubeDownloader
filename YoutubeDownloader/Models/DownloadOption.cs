@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using YoutubeExplode.Videos.Streams;
 
 namespace YoutubeDownloader.Models
@@ -18,21 +19,25 @@ namespace YoutubeDownloader.Models
             StreamInfos = streamInfos;
         }
 
-        public DownloadOption(string format, AudioOnlyStreamInfo audioOnlyStreamInfo)
-            : this(format, "Audio", new[] {audioOnlyStreamInfo})
-        {
-        }
-
-        public DownloadOption(string format, AudioOnlyStreamInfo audioOnlyStreamInfo, VideoOnlyStreamInfo videoOnlyStreamInfo)
-            : this(format, videoOnlyStreamInfo.VideoQualityLabel, new IStreamInfo[] {audioOnlyStreamInfo, videoOnlyStreamInfo})
-        {
-        }
-
-        public DownloadOption(string format, MuxedStreamInfo muxedStreamInfo)
-            : this(format, muxedStreamInfo.VideoQualityLabel, new[] {muxedStreamInfo})
+        public DownloadOption(string format, string label, params IStreamInfo[] streamInfos)
+            : this(format, label, (IReadOnlyList<IStreamInfo>) streamInfos)
         {
         }
 
         public override string ToString() => $"{Label} / {Format}";
+    }
+
+    public class DownloadOptionEqualityComparer : IEqualityComparer<DownloadOption>
+    {
+        public static DownloadOptionEqualityComparer Instance { get; } = new DownloadOptionEqualityComparer();
+
+        public bool Equals(DownloadOption x, DownloadOption y) =>
+            StringComparer.OrdinalIgnoreCase.Equals(x.Format, y.Format) &&
+            StringComparer.OrdinalIgnoreCase.Equals(x.Label, y.Label);
+
+        public int GetHashCode(DownloadOption obj) => HashCode.Combine(
+            StringComparer.OrdinalIgnoreCase.GetHashCode(obj.Format),
+            StringComparer.OrdinalIgnoreCase.GetHashCode(obj.Label)
+        );
     }
 }

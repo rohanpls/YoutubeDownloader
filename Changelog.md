@@ -1,3 +1,16 @@
+### v1.7.9 (02-Jul-2020)
+
+- Fixed various YouTube-related issues. Updated to YoutubeExplode v5.1.1.
+
+### v1.7.8 (10-May-2020)
+
+- Fixed various YouTube-related issues. Updated to YoutubeExplode v5.0.4.
+
+### v1.7.7 (07-May-2020)
+
+- Fixed various YouTube-related issues. Updated to YoutubeExplode v5.0.3.
+- Fixed an issue where conversion progress was not correctly reported. Updated to YoutubeExplode.Converter v1.5.1.
+
 ### v1.7.6 (13-Apr-2020)
 
 - Fixed various YouTube-related issues. Updated to YoutubeExplode v5.0.1.
